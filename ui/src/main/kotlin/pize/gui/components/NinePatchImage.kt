@@ -34,13 +34,13 @@ class NinePatchImage(textureRegion: TextureRegion, mesh: RegionMesh?) : UICompon
             regions[i] = TextureRegion(
                 texture,
                 (
-                        mesh.getMesh()[i % 3] / texture.widthPx).toDouble(),
+                        mesh!!.mesh[i % 3] / texture.widthPx).toDouble(),
                 (
-                        mesh.getMesh()[4 + i / 3] / texture.heightPx).toDouble(),
+                        mesh.mesh[4 + i / 3] / texture.heightPx).toDouble(),
                 (
-                        mesh.getMesh()[i % 3 + 1] / texture.widthPx).toDouble(),
+                        mesh.mesh[i % 3 + 1] / texture.widthPx).toDouble(),
                 (
-                        mesh.getMesh()[4 + i / 3 + 1] / texture.heightPx
+                        mesh.mesh[4 + i / 3 + 1] / texture.heightPx
                         ).toDouble()
             )
         }

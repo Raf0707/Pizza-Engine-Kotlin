@@ -55,27 +55,27 @@ object Pize {
 
     @JvmStatic
     fun window(): Window? {
-        return context.getWindow()
+        return context?.window
     }
 
     @JvmStatic
     fun keyboard(): Keyboard? {
-        return context.getKeyboard()
+        return context?.keyboard
     }
 
     @JvmStatic
     fun mouse(): Mouse? {
-        return context.getMouse()
+        return context?.mouse
     }
 
     @JvmStatic
     fun monitor(): Monitor? {
-        return MonitorManager.Companion.getPrimary()
+        return MonitorManager.Companion?.primary
     }
 
     @JvmStatic
     fun audio(): Audio? {
-        return context.getAudio()
+        return context?.audio
     }
 
     val isTouchDown: Boolean
@@ -88,32 +88,32 @@ object Pize {
         get() = mouse()!!.isLeftReleased || mouse()!!.isRightReleased
     @JvmStatic
     val width: Int
-        get() = window().getWidth()
+        get() = window()?.width!!
     @JvmStatic
     val height: Int
-        get() = window().getHeight()
+        get() = window()?.height!!
     val aspect: Float
         get() = window()!!.aspect()
     @JvmStatic
     val x: Int
-        get() = mouse().getX()
+        get() = mouse()?.x!!
     @JvmStatic
     val y: Int
-        get() = window().getHeight() - mouse().getY()
+        get() = window()?.height?.minus(mouse()?.y!!)!!
     val invY: Int
-        get() = mouse().getY()
+        get() = mouse()?.y!!
     @JvmStatic
     val cursorPos: Vec2f
         get() = Vec2f(x.toFloat(), y.toFloat())
     @JvmStatic
     val fPS: Int
-        get() = context.getFps()
+        get() = context?.fps!!
     @JvmStatic
     val dt: Float
-        get() = context!!.renderDeltaTime
+        get() = context!!.renderDeltaTime.get()
     @JvmStatic
     val updateDt: Float
-        get() = context!!.fixedUpdateDeltaTime
+        get() = context!!.fixedUpdateDeltaTime.get()
 
     @JvmStatic
     fun setFixedUpdateTPS(updateTPS: Float) {
@@ -127,7 +127,7 @@ object Pize {
 
     @JvmStatic
     var clipboardString: String?
-        get() = window().getClipboardString()
+        get() = window()?.clipboardString!!
         set(charSequence) {
             window()!!.setClipboardString(charSequence)
         }

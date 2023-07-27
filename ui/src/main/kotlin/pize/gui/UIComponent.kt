@@ -5,6 +5,7 @@ import pize.Pize.mouse
 import pize.Pize.window
 import pize.gui.constraint.*
 import pize.gui.constraint.RelativeConstraint.RelativeTo
+import pize.gui.constraint.RelativeConstraint.RelativeTo.*
 
 abstract class UIComponent<C> @JvmOverloads constructor(
     var xConstraint: Constraint? = Constraint.Companion.zero(),
@@ -22,7 +23,7 @@ abstract class UIComponent<C> @JvmOverloads constructor(
         protected set
     var isShow = false
         private set
-    open var isHover = false
+    var isHover = false
         private set
     private var preGrab = false
     var isGrab = false
@@ -81,6 +82,8 @@ abstract class UIComponent<C> @JvmOverloads constructor(
             when (layoutType) {
                 LayoutType.HORIZONTAL -> shiftX += alignSignX(alignComponents) * (if (sortedChildList.size != 1 && child === sortedChildList[0] && isCenteredX) (child.width + sortedChildList[1].width) / 2 else child.width) + child.getConstraintX()
                 LayoutType.VERTICAL -> shiftY += alignSignY(alignComponents) * (if (sortedChildList.size != 1 && child === sortedChildList[0] && isCenteredY) (child.height + sortedChildList[1].height) / 2 else child.height) + child.getConstraintY()
+                LayoutType.CONSTRAINT -> TODO()
+                null -> TODO()
             }
         }
         renderEnd(canvas)
@@ -227,9 +230,9 @@ abstract class UIComponent<C> @JvmOverloads constructor(
     }
 
     private fun calculateSize() {
-        if (widthConstraint.getType() == ConstraintType.ASPECT) height = calcConstraintY(heightConstraint)
+        if (widthConstraint?.type == ConstraintType.ASPECT) height = calcConstraintY(heightConstraint)
         width = calcConstraintX(widthConstraint)
-        if (widthConstraint.getType() != ConstraintType.ASPECT) height = calcConstraintY(heightConstraint)
+        if (widthConstraint?.type != ConstraintType.ASPECT) height = calcConstraintY(heightConstraint)
     }
 
     private fun calculatePos() {
@@ -245,18 +248,20 @@ abstract class UIComponent<C> @JvmOverloads constructor(
     }
 
     protected fun calcConstraintX(x: Constraint?): Float {
-        return when (x.getType()) {
-            ConstraintType.PIXEL -> x.getValue()
-            ConstraintType.ASPECT -> x.getValue() * height
-            ConstraintType.RELATIVE -> getRelativeWidth(x as RelativeConstraint?)
+        return when (x?.type) {
+            ConstraintType.PIXEL -> x.value
+            ConstraintType.ASPECT -> x.value * height
+            ConstraintType.RELATIVE -> getRelativeWidth(x as RelativeConstraint?)!!
+            null -> TODO()
         }
     }
 
     protected fun calcConstraintY(y: Constraint?): Float {
-        return when (y.getType()) {
-            ConstraintType.PIXEL -> y.getValue()
-            ConstraintType.ASPECT -> y.getValue() * width
+        return when (y?.type) {
+            ConstraintType.PIXEL -> y.value
+            ConstraintType.ASPECT -> y.value * width
             ConstraintType.RELATIVE -> getRelativeHeight(y as RelativeConstraint?)
+            null -> TODO()
         }
     }
 
@@ -275,38 +280,48 @@ abstract class UIComponent<C> @JvmOverloads constructor(
     }
 
     private fun getRelativeWidth(constraint: RelativeConstraint?): Float {
-        return constraint.getValue() * when (constraint.getRelativeTo()) {
-            RelativeTo.AUTO, RelativeTo.WIDTH -> parentWidth
-            RelativeTo.HEIGHT -> parentHeight
+        if (constraint != null) {
+            return constraint.value * when (constraint.relativeTo) {
+                AUTO, WIDTH -> parentWidth
+                HEIGHT -> parentHeight
+            }
         }
+        return 0F
     }
 
     private fun getRelativeHeight(constraint: RelativeConstraint?): Float {
-        return constraint.getValue() * when (constraint.getRelativeTo()) {
-            RelativeTo.AUTO, RelativeTo.HEIGHT -> parentHeight
-            RelativeTo.WIDTH -> parentWidth
+        if (constraint != null) {
+            return constraint.value * when (constraint.relativeTo) {
+                AUTO, HEIGHT -> parentHeight
+                WIDTH -> parentWidth
+            }
         }
+        return 0F
     }
 
     private val parentX: Float
-        private get() = if (parent == null) 0 else parent!!.x
+        private get() = if (parent == null) 0F else parent!!.x
     private val parentY: Float
-        private get() = if (parent == null) 0 else parent!!.y
+        private get() = if (parent == null) 0F else parent!!.y
     private val parentWidth: Float
         private get() = if (parent == null) Pize.width.toFloat() else parent!!.width
     private val parentHeight: Float
         private get() = if (parent == null) Pize.height.toFloat() else parent!!.height
     private val parentAlignOffsetX: Float
-        private get() = if (parent != null) getAlignOffsetX(parent!!.alignComponents) else 0
+        private get() = if (parent != null) getAlignOffsetX(parent!!.alignComponents) else 0F
     private val parentAlignOffsetY: Float
-        private get() = if (parent != null) getAlignOffsetY(parent!!.alignComponents) else 0
+        private get() = if (parent != null) getAlignOffsetY(parent!!.alignComponents) else 0F
 
     private fun getAlignOffsetX(align: Align?): Float {
-        return if (align == Align.CENTER || align == Align.DOWN || align == Align.UP) (parentWidth - width) / 2 else if (align == Align.RIGHT || align == Align.RIGHT_DOWN || align == Align.RIGHT_UP) parentWidth - width else 0
+        if (align == Align.CENTER || align == Align.DOWN || align == Align.UP) return (parentWidth - width) / 2
+        else if (align == Align.RIGHT || align == Align.RIGHT_DOWN || align == Align.RIGHT_UP) return parentWidth - width else 0
+        return 0F
     }
 
     private fun getAlignOffsetY(align: Align?): Float {
-        return if (align == Align.CENTER || align == Align.LEFT || align == Align.RIGHT) (parentHeight - height) / 2 else if (align == Align.UP || align == Align.LEFT_UP || align == Align.RIGHT_UP) parentHeight - height else 0
+        if (align == Align.CENTER || align == Align.LEFT || align == Align.RIGHT) return (parentHeight - height) / 2
+        else if (align == Align.UP || align == Align.LEFT_UP || align == Align.RIGHT_UP) return parentHeight - height else 0
+        return 0F
     }
 
     private fun alignSignX(align: Align?): Int {
@@ -328,9 +343,9 @@ abstract class UIComponent<C> @JvmOverloads constructor(
             else -> false
         }
 
-    fun copy(): UIComponent<C> {
-        return try {
-            super.clone() as UIComponent<*>
+    fun copy(): UIComponent<*> {
+        try {
+            return super.clone() as UIComponent<*>
         } catch (e: CloneNotSupportedException) {
             throw AssertionError()
         }

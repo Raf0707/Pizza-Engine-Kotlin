@@ -189,7 +189,7 @@ class Window @JvmOverloads constructor(
             GLFW.glfwSetClipboardString(iD, charSequence)
         }
 
-    fun setClipboardString(buffer: ByteBuffer?) {
+    fun setClipboardString(buffer: String?) {
         GLFW.glfwSetClipboardString(iD, buffer)
     }
 

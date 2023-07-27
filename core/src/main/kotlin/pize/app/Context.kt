@@ -23,8 +23,8 @@ class Context(window: Window, keyboard: Keyboard, mouse: Mouse) {
     val keyboard: Keyboard
     val mouse: Mouse
     private val fpsCounter: PerSecCounter
-    private val renderDeltaTime: DeltaTimeCounter
-    private val fixedUpdateDeltaTime: DeltaTimeCounter
+    val renderDeltaTime: DeltaTimeCounter
+    val fixedUpdateDeltaTime: DeltaTimeCounter
     private val fixedUpdateExecutor: ExecutorService
     private var fixedUpdateGenerator: TickGenerator? = null
     private var initialUpdateTPS = 0f
