@@ -16,7 +16,7 @@ class BaseShader private constructor(path: String) : Shader(
     }
 
     fun setMatrices(camera: Camera) {
-        setMatrices(camera.getProjection(), camera.getView())
+        setMatrices(camera?.projection!!, camera?.view!!)
     }
 
     fun setColor(color: IColor?) {

@@ -16,8 +16,8 @@ class GaussianBlur(private var radius: Float) : PostProcessEffect {
     private val shader: Shader
 
     init {
-        val width = Pize.getWidth()
-        val height = Pize.getHeight()
+        val width = Pize?.width!!
+        val height = Pize?.height!!
 
         // Frame Buffer 1 & Render Buffer
         fbo1 = FrameBufferObject(width, height)

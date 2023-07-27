@@ -3,11 +3,11 @@ package pize.io.monitor
 import org.lwjgl.glfw.GLFW
 import org.lwjgl.glfw.GLFWVidMode
 
-class Monitor(val iD: Long) {
+class Monitor(val ID: Long) {
     private val videoMode: GLFWVidMode?
 
     init {
-        videoMode = GLFW.glfwGetVideoMode(iD)
+        videoMode = GLFW.glfwGetVideoMode(ID)
     }
 
     val refreshRate: Int
@@ -30,5 +30,5 @@ class Monitor(val iD: Long) {
     }
 
     val name: String?
-        get() = GLFW.glfwGetMonitorName(iD)
+        get() = GLFW.glfwGetMonitorName(ID)
 }

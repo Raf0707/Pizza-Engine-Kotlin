@@ -37,7 +37,7 @@ class Main : AppAdapter() {
         val button = NinePatchImage(buttonTextureRegion, regionMesh)
         button.expandType = ExpandType.HORIZONTAL
         button.setSize(relative(0.333), relative(0.333))
-        layout!!.put("button", button as UIComponent<*>)
+        layout!!.put("button", button as UIComponent<TextureBatch?>)
     }
 
     override fun render() {

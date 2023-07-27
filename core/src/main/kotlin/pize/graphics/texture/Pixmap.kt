@@ -82,7 +82,8 @@ open class Pixmap : Sizable, Resizable {
         color1.set(
             color1.r() * (1 - color2.a()) + color2.r() * color2.a(),
             color1.g() * (1 - color2.a()) + color2.g() * color2.a(),
-            color1.b() * (1 - color2.a()) + color2.b() * color2.a(), max(color1.a().toDouble(), color2.a().toDouble())
+            color1.b() * (1 - color2.a()) + color2.b() * color2.a(),
+            (max(color1.a().toDouble(), color2.a().toDouble())) as Float
         )
         return color1
     }
@@ -288,8 +289,10 @@ open class Pixmap : Sizable, Resizable {
 
     fun drawPixmap(pixmap: Pixmap?, x: Int, y: Int) {
         if (pixmap == null) return
-        val iEnd = if ((x + pixmap.width).also { iEnd = it } > width) width.toFloat() else iEnd
-        val jEnd = if ((y + pixmap.height).also { jEnd = it } > height) height.toFloat() else jEnd
+        var iEnd: Float
+        var jEnd: Float
+        iEnd = if ((x + pixmap.width).also { iEnd = it.toFloat() } > width) width.toFloat() else iEnd
+        jEnd = if ((y + pixmap.height).also { jEnd = it.toFloat() } > height) height.toFloat() else jEnd
         var i = max(0.0, x.toDouble()).toInt()
         while (i < iEnd) {
             var j = max(0.0, y.toDouble()).toInt()
@@ -305,8 +308,10 @@ open class Pixmap : Sizable, Resizable {
 
     fun drawPixmap(pixmap: Pixmap?, scaleX: Double, scaleY: Double) {
         if (pixmap == null || scaleX <= 0 || scaleY <= 0) return
-        val iEnd = if ((pixmap.width * scaleX).also { iEnd = it } > width) width.toDouble() else iEnd
-        val jEnd = if ((pixmap.height * scaleY).also { jEnd = it } > height) height.toDouble() else jEnd
+        var iEnd: Double
+        var jEnd: Double
+        iEnd = if ((pixmap.width * scaleX).also { iEnd = it } > width) width.toDouble() else iEnd
+        jEnd = if ((pixmap.height * scaleY).also { jEnd = it } > height) height.toDouble() else jEnd
         var i = 0
         while (i < iEnd) {
             var j = 0
@@ -326,8 +331,10 @@ open class Pixmap : Sizable, Resizable {
 
     fun drawPixmap(pixmap: Pixmap?, x: Int, y: Int, scaleX: Double, scaleY: Double) {
         if (pixmap == null || scaleX <= 0 || scaleY <= 0) return
-        val iEnd = if ((x + pixmap.width * scaleX).also { iEnd = it } > width) width.toDouble() else iEnd
-        val jEnd = if ((y + pixmap.height * scaleY).also { jEnd = it } > height) height.toDouble() else jEnd
+        var iEnd: Double
+        var jEnd: Double
+        iEnd = if ((x + pixmap.width * scaleX).also { iEnd = it } > width) width.toDouble() else iEnd
+        jEnd = if ((y + pixmap.height * scaleY).also { jEnd = it } > height) height.toDouble() else jEnd
         var i = max(0.0, x.toDouble()).toInt()
         while (i < iEnd) {
             var j = max(0.0, y.toDouble()).toInt()

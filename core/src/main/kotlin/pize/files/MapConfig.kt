@@ -26,7 +26,7 @@ class MapConfig(resource: Resource?) {
     }
 
     fun save() {
-        val writer = resource.getWriter()
+        val writer = resource?.writer
         for ((key, value) in map) writer!!.println(key + separator + value)
         writer!!.close()
     }

@@ -29,7 +29,7 @@ class OggInputStream @JvmOverloads constructor(input: InputStream?, previousStre
     private val comment = Comment() // struct that stores all the bitstream user comments
     private val dspState = DspState() // central working state for the packet->PCM decoder
     private val vorbisBlock = Block(dspState) // local working space for packet->PCM decode
-    var buffer: ByteArray?
+    var buffer: ByteArray? = null
     var bytes = 0
     var bigEndian = ByteOrder.nativeOrder() == ByteOrder.BIG_ENDIAN
     var endOfBitStream = true
@@ -207,7 +207,7 @@ class OggInputStream @JvmOverloads constructor(input: InputStream?, previousStre
                 inited = true
                 return
             }
-            val _pcm: Array<Array<FloatArray>> = arrayOfNulls(1)
+            val _pcm: Array<Array<FloatArray>?> = arrayOfNulls(1)
             val _index = IntArray(oggInfo.channels)
             // The rest is just a straight decode loop until end of stream
             while (!endOfBitStream) {
@@ -250,7 +250,7 @@ class OggInputStream @JvmOverloads constructor(input: InputStream?, previousStre
                                         // int ptr=i;
                                         val mono = _index[i]
                                         for (j in 0 until bout) {
-                                            var `val` = (pcm[i][mono + j] * 32767.0).toInt()
+                                            var `val` = (pcm?.get(i)!![mono + j] * 32767.0).toInt()
                                             // might as well guard against clipping
                                             if (`val` > 32767) {
                                                 `val` = 32767

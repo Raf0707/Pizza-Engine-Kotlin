@@ -15,7 +15,7 @@ class Mesh : Disposable {
 
     constructor(vararg attributes: VertexAttr) {
         mode = Primitive.TRIANGLES
-        this.attributes = attributes
+        this.attributes = attributes as Array<VertexAttr>
         vertices = FloatArray(0)
         indices = IntArray(0)
         vAO = VertexArray()

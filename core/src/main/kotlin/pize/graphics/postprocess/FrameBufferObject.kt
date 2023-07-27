@@ -12,8 +12,8 @@ import pize.graphics.util.ScreenQuadShader
 import java.nio.*
 
 class FrameBufferObject @JvmOverloads constructor(
-    var width: Int = Pize.getWidth(),
-    var height: Int = Pize.getHeight()
+    var width: Int = Pize?.width!!,
+    var height: Int = Pize?.height!!
 ) : GlObject(GL30.glGenFramebuffers()), Resizable {
     private var attachment: Attachment
     val texture: Texture
@@ -47,7 +47,7 @@ class FrameBufferObject @JvmOverloads constructor(
     fun create() {
         texture.update()
         bind()
-        GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, attachment.GL, GL11.GL_TEXTURE_2D, texture.id, 0)
+        GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, attachment.GL, GL11.GL_TEXTURE_2D, texture.ID, 0)
         GL11.glDrawBuffer(if (draw) attachment.GL else GL11.GL_NONE)
         GL11.glReadBuffer(if (read) attachment.GL else GL11.GL_NONE)
         unbind()
@@ -70,8 +70,8 @@ class FrameBufferObject @JvmOverloads constructor(
         bind()
         val width = texture.width
         val height = texture.height
-        val buffer = BufferUtils.createByteBuffer(width * height * texture.format.channels)
-        GL11.glReadPixels(0, 0, width, height, texture.format.GL, texture.type.GL, buffer)
+        val buffer = BufferUtils.createByteBuffer(width * height * texture.format?.channels!!)
+        GL11.glReadPixels(0, 0, width, height, texture?.format?.GL!!, texture?.type?.GL!!, buffer)
         unbind()
         return buffer
     }

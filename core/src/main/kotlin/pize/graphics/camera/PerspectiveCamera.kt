@@ -8,8 +8,8 @@ import pize.math.vecmath.matrix.Matrix4f
 open class PerspectiveCamera(width: Int, height: Int, near: Double, far: Double, fieldOfView: Double) :
     Camera3D(width, height), Resizable {
     private var fieldOfView: Float
-    private override var near: Float
-    private override var far: Float
+    override var near: Float = 0.0f
+    override var far: Float = 0.0f
     override val projection: Matrix4f?
     override val view: Matrix4f?
     @JvmField
@@ -22,8 +22,8 @@ open class PerspectiveCamera(width: Int, height: Int, near: Double, far: Double,
     private var imaginaryZ = false
 
     constructor(near: Double, far: Double, fieldOfView: Double) : this(
-        Pize.getWidth(),
-        Pize.getHeight(),
+        Pize?.width!!,
+        Pize?.height!!,
         near,
         far,
         fieldOfView
@@ -34,7 +34,7 @@ open class PerspectiveCamera(width: Int, height: Int, near: Double, far: Double,
         this.far = far.toFloat()
         this.fieldOfView = fieldOfView.toFloat()
         view =
-            Matrix4f().toLookAt(position, rotation.getDirection()).mul(Matrix4f().toRotatedZ(rotation.roll.toDouble()))
+            Matrix4f().toLookAt(position, rotation.direction).mul(Matrix4f().toRotatedZ(rotation.roll.toDouble()))
         projection = Matrix4f().toPerspective(width.toFloat(), height.toFloat(), this.near, this.far, this.fieldOfView)
         imaginaryView = Matrix4f().set(view)
         frustum = Frustum(view, projection)
@@ -46,12 +46,12 @@ open class PerspectiveCamera(width: Int, height: Int, near: Double, far: Double,
             dirtyProjection = false
         }
         view!!.toLookAt(
-            if (imaginaryX) 0 else position.x,
-            if (imaginaryY) 0 else position.y,
-            if (imaginaryZ) 0 else position.z,
-            rotation.getDirection()
+            (if (imaginaryX) 0 else position.x) as Float,
+            (if (imaginaryY) 0 else position.y) as Float,
+            (if (imaginaryZ) 0 else position.z) as Float,
+            rotation.direction
         )
-        imaginaryView!!.toLookAt(position, rotation.getDirection()).mul(Matrix4f().toRotatedZ(rotation.roll.toDouble()))
+        imaginaryView!!.toLookAt(position, rotation.direction).mul(Matrix4f().toRotatedZ(rotation.roll.toDouble()))
         frustum.setFrustum(
             if (!(imaginaryX || imaginaryY || imaginaryZ)) view else imaginaryView,
             projection
@@ -78,21 +78,21 @@ open class PerspectiveCamera(width: Int, height: Int, near: Double, far: Double,
             dirtyProjection = true
         }
 
-    override fun getNear(): Float {
+    fun getNear(): Float {
         return near
     }
 
-    override fun setNear(near: Float) {
+    fun setNear(near: Float) {
         if (this.near == near) return
         this.near = near
         dirtyProjection = true
     }
 
-    override fun getFar(): Float {
+    fun getFar(): Float {
         return far
     }
 
-    override fun setFar(far: Float) {
+    fun setFar(far: Float) {
         if (this.far == far) return
         this.far = far
         dirtyProjection = true

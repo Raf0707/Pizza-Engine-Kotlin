@@ -68,8 +68,8 @@ class SkyBox @JvmOverloads constructor(
     }
 
     fun render(camera: Camera) {
-        val view = camera.getView().copy().cullPosition()
-        render(camera.getProjection(), view)
+        val view = camera?.view!!.copy().cullPosition()
+        render(camera?.projection!!, view)
     }
 
     override fun dispose() {

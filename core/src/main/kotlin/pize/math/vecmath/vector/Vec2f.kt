@@ -6,7 +6,7 @@ import pize.math.vecmath.matrix.Matrix3
 import pize.math.vecmath.matrix.Matrix3f
 import java.util.*
 
-class Vec2f {
+open class Vec2f {
     constructor()
     constructor(x: Double, y: Double) {
         set(x, y)
@@ -28,7 +28,7 @@ class Vec2f {
         set(vector)
     }
 
-    constructor(vector: Vec2f) {
+    constructor(vector: Vec2f?) {
         set(vector)
     }
 
@@ -187,7 +187,7 @@ class Vec2f {
         return this
     }
 
-    fun copy(): Vec2f {
+    open fun copy(): Vec2f {
         return Vec2f(this)
     }
 

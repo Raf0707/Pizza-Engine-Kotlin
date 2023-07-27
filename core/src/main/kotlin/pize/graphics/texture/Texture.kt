@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL12
 import pize.app.Resizable
 import pize.files.Resource
+import pize.graphics.texture.PixmapIO.load
 
 class Texture : GlTexture, Resizable {
     var width = 0
@@ -19,11 +20,11 @@ class Texture : GlTexture, Resizable {
 
     constructor(pixmap: Pixmap?) : super(GL11.GL_TEXTURE_2D) {
         this.pixmap = pixmap
-        resize(pixmap.getWidth(), pixmap.getHeight())
+        resize(pixmap?.width!!, pixmap?.height!!)
     }
 
-    constructor(filepath: String?) : this(load(filepath))
-    constructor(res: Resource?) : this(load(res))
+    constructor(filepath: String?) : this(load(filepath!!))
+    constructor(res: Resource?) : this(load(res!!))
     constructor(texture: Texture) : this(texture.pixmap!!.copy())
 
     override fun resize(width: Int, height: Int) {
@@ -35,7 +36,7 @@ class Texture : GlTexture, Resizable {
     fun update() {
         bind()
         parameters.use(GL11.GL_TEXTURE_2D)
-        parameters.texImage2D(GL11.GL_TEXTURE_2D, if (pixmap != null) pixmap.getBuffer() else null, width, height)
+        parameters.texImage2D(GL11.GL_TEXTURE_2D, if (pixmap != null) pixmap?.buffer!! else null, width, height)
         genMipMap()
     }
 
@@ -59,18 +60,18 @@ class Texture : GlTexture, Resizable {
     }
 
     protected fun genMipMapManual() {
-        var pixmap = pixmap.getMipmapped()
+        var pixmap = pixmap?.mipmapped!!
         for (level in 1..parameters.mipmapLevels) {
             parameters.texImage2D(GL11.GL_TEXTURE_2D, pixmap.buffer, pixmap!!.width, pixmap!!.height, level)
-            if (level != parameters.mipmapLevels) pixmap = pixmap.getMipmapped()
+            if (level != parameters.mipmapLevels) pixmap = pixmap?.mipmapped!!
         }
     }
 
     fun setPixmap(pixmap: Pixmap): Texture {
         if (this.pixmap == null) return this
         this.pixmap!!.set(pixmap)
-        width = pixmap.getWidth()
-        height = pixmap.getHeight()
+        width = pixmap?.width!!
+        height = pixmap?.height!!
         update()
         return this
     }

@@ -47,7 +47,7 @@ class TextureBatch @JvmOverloads constructor(private val batchSize: Int = 256) :
             // Create VAO, VBO, EBO
             vao = VertexArray()
             vbo = VertexBuffer()
-            vbo.enableAttributes(VertexAttr(2, Type.FLOAT), VertexAttr(2, Type.FLOAT), VertexAttr(4, Type.FLOAT, false))
+            vbo!!.enableAttributes(VertexAttr(2, Type.FLOAT), VertexAttr(2, Type.FLOAT), VertexAttr(4, Type.FLOAT, false))
             ebo = ElementBuffer()
             val indices = IntArray(Batch.Companion.QUAD_INDICES * batchSize)
             for (i in 0 until batchSize) {
@@ -60,9 +60,9 @@ class TextureBatch @JvmOverloads constructor(private val batchSize: Int = 256) :
                 indices[indexQuadOffset + 4] = vertexQuadOffset + 3
                 indices[indexQuadOffset + 5] = vertexQuadOffset
             }
-            ebo.setData(indices, BufferUsage.STATIC_DRAW)
+            ebo!!.setData(indices, BufferUsage.STATIC_DRAW)
         }
-        vertices = FloatArray(Batch.Companion.QUAD_VERTICES * batchSize * vbo.getVertexSize())
+        vertices = FloatArray(Batch.Companion.QUAD_VERTICES * batchSize * vbo?.vertexSize!!)
         transformOrigin = Vec2f(0.5)
         transformMatrix = Matrix3f()
         rotationMatrix = Matrix3f()
@@ -197,14 +197,14 @@ class TextureBatch @JvmOverloads constructor(private val batchSize: Int = 256) :
     }
 
     fun begin(camera: Camera) {
-        begin(camera.getProjection(), camera.getView())
+        begin(camera?.projection!!, camera?.view!!)
     }
 
     fun begin() {
         if (viewMatrix == null) viewMatrix = Matrix4f()
         if (projectionMatrix == null) projectionMatrix = Matrix4f()
         begin(
-            projectionMatrix!!.toOrthographic(0f, 0f, Pize.getWidth().toFloat(), Pize.getHeight().toFloat()),
+            projectionMatrix!!.toOrthographic(0f, 0f, Pize?.width!!.toFloat(), Pize?.height!!.toFloat()),
             viewMatrix
         )
     }
@@ -265,7 +265,7 @@ class TextureBatch @JvmOverloads constructor(private val batchSize: Int = 256) :
         vertices[vertexOffset + 5] = g
         vertices[vertexOffset + 6] = b
         vertices[vertexOffset + 7] = a
-        vertexOffset += vbo.getVertexSize()
+        vertexOffset += vbo?.vertexSize!!
     }
 
     override fun setTransformOrigin(x: Double, y: Double) {

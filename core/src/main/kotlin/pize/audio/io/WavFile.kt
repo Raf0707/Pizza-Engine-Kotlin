@@ -8,7 +8,7 @@ import java.nio.ByteBuffer
 
 class WavFile(private val file: File, private val sampleRate: Int, channels: Int) {
     private val channels: Short
-    private var data: ByteArray
+    private lateinit var data: ByteArray
 
     init {
         this.channels = channels.toShort()

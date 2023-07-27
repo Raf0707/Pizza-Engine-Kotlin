@@ -2,6 +2,7 @@ package pize.graphics.texture.atlas
 
 import pize.files.Resource
 import pize.graphics.texture.*
+import pize.graphics.texture.PixmapIO.load
 import kotlin.math.max
 
 class TextureAtlas<I> {
@@ -17,7 +18,7 @@ class TextureAtlas<I> {
     fun generate(width: Int, height: Int, paddingLeft: Int, paddingTop: Int, paddingRight: Int, paddingBottom: Int) {
         // Sort images from big to small perimeter
         val atlasHalfPerimeter = width + height
-        images.sort(Comparator.comparingInt { image: Image<I> -> atlasHalfPerimeter - image.halfPerimeter })
+        images.sortWith(Comparator.comparingInt { image: Image<I> -> atlasHalfPerimeter - image.halfPerimeter })
         val pixmap = Pixmap(width, height)
         val root = TextureAtlasNode(0, 0, width - paddingLeft, height - paddingTop)
         regions = HashMap(images.size)
@@ -31,7 +32,7 @@ class TextureAtlas<I> {
             val drawWidth = image.pixmap.width
             val drawHeight = image.pixmap.height
             pixmap.drawPixmap(image.pixmap, drawX, drawY)
-            regions[image.identifier] = Region(
+            (regions as HashMap<I, Region>)[image.identifier] = Region(
                 drawX.toDouble() / width,
                 drawY.toDouble() / height,
                 (drawX + drawWidth).toDouble() / width,
@@ -56,7 +57,7 @@ class TextureAtlas<I> {
     }
 
     fun put(identifier: I, res: Resource?) {
-        put(identifier, load(res))
+        put(identifier, load(res!!))
     }
 
     fun put(identifier: I, path: String) {

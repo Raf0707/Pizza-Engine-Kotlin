@@ -56,7 +56,7 @@ class TextureBatchFast(maxSize: Int, maxTextures: Int, roundPosition: Boolean) :
             // Create VAO, VBO, EBO
             vao = VertexArray()
             vbo = VertexBuffer()
-            vbo.enableAttributes(
+            vbo!!.enableAttributes(
                 VertexAttr(2, Type.FLOAT),
                 VertexAttr(2, Type.FLOAT),
                 VertexAttr(4, Type.FLOAT, true),
@@ -74,11 +74,11 @@ class TextureBatchFast(maxSize: Int, maxTextures: Int, roundPosition: Boolean) :
                 indices[indexQuadOffset + 4] = vertexQuadOffset + 3
                 indices[indexQuadOffset + 5] = vertexQuadOffset
             }
-            ebo.setData(indices, BufferUsage.STATIC_DRAW)
+            ebo!!.setData(indices, BufferUsage.STATIC_DRAW)
         }
         texSlots = IntArray(maxTextures)
         for (i in 0 until maxTextures) texSlots[i] = i
-        vertices = FloatArray(Batch.Companion.QUAD_VERTICES * maxSize * vbo.getVertexSize())
+        vertices = FloatArray(Batch.Companion.QUAD_VERTICES * maxSize * vbo?.vertexSize!!)
         textures = ArrayList()
         transformOrigin = Vec2f(0.5)
         transformMatrix = Matrix3f()
@@ -162,14 +162,14 @@ class TextureBatchFast(maxSize: Int, maxTextures: Int, roundPosition: Boolean) :
     }
 
     fun end(cam: Camera) {
-        end(cam.getProjection(), cam.getView())
+        end(cam?.projection!!, cam?.view!!)
     }
 
     fun end() {
         if (defaultView == null) defaultView = Matrix4f()
         if (defaultProjection == null) defaultProjection = Matrix4f()
         end(
-            defaultProjection!!.toOrthographic(0f, 0f, Pize.getWidth().toFloat(), Pize.getHeight().toFloat()),
+            defaultProjection!!.toOrthographic(0f, 0f, Pize?.width!!.toFloat(), Pize?.height!!.toFloat()),
             defaultView
         )
     }
@@ -216,7 +216,7 @@ class TextureBatchFast(maxSize: Int, maxTextures: Int, roundPosition: Boolean) :
         vertices[vertexOffset + 6] = color.b()
         vertices[vertexOffset + 7] = color.a()
         vertices[vertexOffset + 8] = texIndex.toFloat()
-        vertexOffset += vbo.getVertexSize()
+        vertexOffset += vbo?.vertexSize!!
     }
 
     override fun setTransformOrigin(x: Double, y: Double) {

@@ -4,7 +4,7 @@ import pize.math.Mathc
 import pize.math.vecmath.matrix.Matrix4f
 
 class Frustum(view: Matrix4f?, proj: Matrix4f?) {
-    private var frustum: Array<FloatArray>
+    private lateinit var frustum: Array<FloatArray>
 
     init {
         setFrustum(view, proj)

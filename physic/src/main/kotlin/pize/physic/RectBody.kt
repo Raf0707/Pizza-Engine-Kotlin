@@ -29,9 +29,9 @@ open class RectBody {
     }
 
     val min: Vec2f
-        get() = position.copy().add(rect.getMin())
+        get() = position.copy().add(rect?.min!!)
     val max: Vec2f
-        get() = position.copy().add(rect.getMax())
+        get() = position.copy().add(rect?.max!!)
 
     fun rect(): BoundingBox2? {
         return rect

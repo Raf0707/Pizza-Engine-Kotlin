@@ -15,7 +15,7 @@ abstract class GlTexture @JvmOverloads constructor(
     val type: Type?
         get() = parameters.type
     val format: Format?
-        get() = parameters.format
+        get() = parameters.sizedFormat.base
     val sizedFormat: SizedFormat?
         get() = parameters.sizedFormat
 

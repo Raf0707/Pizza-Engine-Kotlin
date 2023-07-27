@@ -1,5 +1,5 @@
 package pize.util.stream
 
-fun interface FloatSupplier {
+interface FloatSupplier {
     val asFloat: Float
 }

@@ -95,10 +95,10 @@ class TextureRegion : Region {
     companion object {
         fun calcFromRect(x: Int, y: Int, width: Int, height: Int, texture: Texture?): Region {
             return Region(
-                x.toDouble() / texture.getWidth(),
-                y.toDouble() / texture.getHeight(),
-                (x + width).toDouble() / texture.getWidth(),
-                (y + height).toDouble() / texture.getHeight()
+                x.toDouble() / texture?.width!!,
+                y.toDouble() / texture?.height!!,
+                (x + width).toDouble() / texture?.width!!,
+                (y + height).toDouble() / texture?.height!!
             )
         }
     }

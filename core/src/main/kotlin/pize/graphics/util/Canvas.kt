@@ -9,7 +9,7 @@ import pize.graphics.texture.Pixmap
 import pize.graphics.texture.Texture
 import pize.graphics.util.batch.TextureBatch
 
-class Canvas @JvmOverloads constructor(width: Int = Pize.getWidth(), height: Int = Pize.getHeight()) :
+class Canvas @JvmOverloads constructor(width: Int = Pize?.width!!, height: Int = Pize?.height!!) :
     Pixmap(width, height), Disposable {
     private val batch: TextureBatch
     private val camera: OrthographicCamera
@@ -28,7 +28,7 @@ class Canvas @JvmOverloads constructor(width: Int = Pize.getWidth(), height: Int
         frameTexture.setPixmap(this)
         camera.update()
         batch.begin(camera)
-        batch.draw(frameTexture, 0f, 0f, Pize.getWidth().toFloat(), Pize.getHeight().toFloat())
+        batch.draw(frameTexture, 0f, 0f, Pize?.width!!.toFloat(), Pize?.height!!.toFloat())
         batch.end()
         if (cullFace) Gl.enable(Target.CULL_FACE)
     }

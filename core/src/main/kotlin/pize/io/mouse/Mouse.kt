@@ -21,7 +21,7 @@ class Mouse(window: Window) {
     private val released: BooleanArray
 
     init {
-        windowId = window.id
+        windowId = window.ID
         down = BooleanArray(GLFW.GLFW_MOUSE_BUTTON_LAST + 1)
         pressed = BooleanArray(GLFW.GLFW_MOUSE_BUTTON_LAST + 1)
         released = BooleanArray(GLFW.GLFW_MOUSE_BUTTON_LAST + 1)
@@ -88,7 +88,7 @@ class Mouse(window: Window) {
 
     fun isInBounds(x: Double, y: Double, width: Double, height: Double): Boolean {
         val cursorX = this.x
-        val cursorY = Pize.getY()
+        val cursorY = Pize.y
         return !(cursorX < x || cursorY < y || cursorX >= x + width || cursorY >= y + height)
     }
 

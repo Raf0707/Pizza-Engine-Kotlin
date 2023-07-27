@@ -73,7 +73,7 @@ class PrivateRSA {
     @kotlin.Throws(Exception::class)
     private fun initCipher() {
         cipher = Cipher.getInstance("RSA")
-        cipher.init(Cipher.DECRYPT_MODE, key)
+        cipher?.init(Cipher.DECRYPT_MODE, key)
     }
 
     fun decrypt(data: ByteArray?): ByteArray {

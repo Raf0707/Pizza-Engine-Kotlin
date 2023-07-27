@@ -137,7 +137,7 @@ class Quaternion {
         get() = if (gimbalPole == 0) Mathc.atan2(
             (2 * (y * w + x * z)).toDouble(),
             (1 - 2 * (y * y + x * x)).toDouble()
-        ) else 0
+        ) else 0F
     val yaw: Float
         get() = yawRad * Maths.ToDeg
 

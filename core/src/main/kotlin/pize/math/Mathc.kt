@@ -66,7 +66,7 @@ object Mathc {
 
     @JvmStatic
     fun pow(a: Double, b: Double): Float {
-        return a.pow(b) as Float
+        return Math.pow(a, b) as Float
     }
 
     fun random(): Float {
@@ -74,11 +74,11 @@ object Mathc {
     }
 
     fun min(a: Short, b: Short): Short {
-        return kotlin.math.min(a.toDouble(), b.toDouble()).toShort()
+        return kotlin.math.min(a.toDouble(), b.toDouble()).toInt().toShort()
     }
 
     fun max(a: Short, b: Short): Short {
-        return kotlin.math.max(a.toDouble(), b.toDouble()).toShort()
+        return kotlin.math.max(a.toDouble(), b.toDouble()).toInt().toShort()
     }
 
     @JvmStatic

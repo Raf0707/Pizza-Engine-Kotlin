@@ -18,7 +18,7 @@ class Keyboard(window: Window) {
         down = BooleanArray(GLFW.GLFW_KEY_LAST + 1)
         released = BooleanArray(GLFW.GLFW_KEY_LAST + 1)
         keyCallbackList = ArrayList()
-        GLFW.glfwSetKeyCallback(window.id) { windowID: Long, key: Int, scancode: Int, action: Int, mods: Int ->
+        GLFW.glfwSetKeyCallback(window.ID) { windowID: Long, key: Int, scancode: Int, action: Int, mods: Int ->
             if (key == -1) return@glfwSetKeyCallback
             for (keyCallback in keyCallbackList) keyCallback.invoke(key, KeyAction.entries[action])
             when (action) {
@@ -34,7 +34,7 @@ class Keyboard(window: Window) {
             }
         }
         charCallbackList = ArrayList()
-        GLFW.glfwSetCharCallback(window.id) { windowID: Long, character: Int ->
+        GLFW.glfwSetCharCallback(window.ID) { windowID: Long, character: Int ->
             for (charCallback in charCallbackList) charCallback.invoke(
                 character.toChar()
             )

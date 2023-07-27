@@ -14,7 +14,7 @@ class SoundGenerator {
     var bitsPerSample = 16
 
     init {
-        sampleRate = Pize.audio().current.frequency
+        sampleRate = Pize.audio()?.current?.frequency!!
     }
 
     fun sin(frequency: Double, seconds: Double): ByteBuffer {

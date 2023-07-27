@@ -13,7 +13,7 @@ import kotlin.math.max
 class BitmapFont : Disposable {
     private val glyphs: MutableMap<Int, Glyph> = HashMap()
     private val pages: MutableMap<Int, Texture> = HashMap()
-    private var lineHeight = 0
+    var lineHeight = 0
     @JvmField
     var scale = 0f
     @JvmField
@@ -129,7 +129,7 @@ class BitmapFont : Disposable {
         var advanceY = (lineHeight * StringUtils.count(text, "\n")).toFloat()
         batch.setTransformOrigin(0.0, 0.0)
         batch.rotate(rotation)
-        batch.shear(if (isItalic) ITALIC_ANGLE else 0, 0f)
+        batch.shear((if (isItalic) ITALIC_ANGLE else 0) as Float, 0f)
 
         // Calculate centering offset
         val bounds = getBounds(text, width)

@@ -29,11 +29,11 @@ class ShadowMapping(private val width: Int, private val height: Int, size: Vec3f
         fbo.setWrite(false)
         fbo.setRead(false)
         fbo.info
-            .setSizedFormat(SizedFormat.DEPTH_COMPONENT32)
-            .setWrap(Wrap.CLAMP_TO_BORDER)
-            .setFilter(Filter.NEAREST)
-            .setType(Type.FLOAT)
-            .borderColor[1f, 1f, 1f] = 1f
+            ?.setSizedFormat(SizedFormat.DEPTH_COMPONENT32)
+            ?.setWrap(Wrap.CLAMP_TO_BORDER)
+            ?.setFilter(Filter.NEAREST)
+            ?.setType(Type.FLOAT)
+            ?.borderColor?.set(1f, 1f, 1f, 1f)
         fbo.create()
 
         // Shader
@@ -54,7 +54,7 @@ class ShadowMapping(private val width: Int, private val height: Int, size: Vec3f
 
     fun end() {
         fbo.unbind()
-        Gl.viewport(Pize.getWidth(), Pize.getHeight())
+        Gl.viewport(Pize?.width!!, Pize?.height!!)
     }
 
     val shadowMap: Texture?

@@ -7,7 +7,7 @@ import pize.math.vecmath.matrix.Matrix4f
 import java.util.*
 import kotlin.math.sqrt
 
-class Vec3f {
+open class Vec3f {
     constructor()
     constructor(x: Double, y: Double, z: Double) {
         set(x, y, z)
@@ -37,7 +37,7 @@ class Vec3f {
         set(vector)
     }
 
-    constructor(vector: Vec3f) {
+    constructor(vector: Vec3f?) {
         set(vector)
     }
 
@@ -56,6 +56,8 @@ class Vec3f {
     constructor(vector: Vec2i) {
         set(vector)
     }
+
+    constructor(p0: Any, p1: Any, p2: Any)
 
     /**             POINT              */
     fun dst(x: Float, y: Float, z: Float): Float {
@@ -256,7 +258,7 @@ class Vec3f {
         return this
     }
 
-    fun copy(): Vec3f {
+    open fun copy(): Vec3f {
         return Vec3f(this)
     }
 

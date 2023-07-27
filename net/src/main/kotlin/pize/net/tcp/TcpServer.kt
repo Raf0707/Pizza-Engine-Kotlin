@@ -104,6 +104,6 @@ class TcpServer(private val listener: TcpListener) : TcpDisconnector(), Closeabl
         for (connection in connectionList!!) connection.close()
         connectionList!!.clear()
         isClosed = true
-        Utils.close(serverSocket)
+        serverSocket?.let { Utils.close(it) }
     }
 }

@@ -3,8 +3,8 @@ package pize.util
 object StringUtils {
     @JvmStatic
     fun isBlank(string: String?): Boolean {
-        var length: Int
-        if (string == null || string.length.also { length = it } == 0) return true
+        var length: Int = string?.length!!
+        if (string == null || length == 0) return true
         for (i in 0 until length) if (!Character.isWhitespace(string[i])) return false
         return true
     }

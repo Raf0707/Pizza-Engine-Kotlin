@@ -26,26 +26,26 @@ class Scissor(private val batch: TextureBatch) {
         if (scissor.index < 0) return
         if (scissor.scissorOfIndex != -1 && !scissorList.isEmpty()) {
             val scissorOf = scissorList[scissor.scissorOfIndex]
-            val scissorOfX2 = scissorOf.getX2()
-            val scissorOfY2 = scissorOf.getY2()
+            val scissorOfX2 = scissorOf?.x2
+            val scissorOfY2 = scissorOf?.y2
             val oldX2 = scissor.x2
             val oldY2 = scissor.y2
-            scissor.rectangle.x = max(min(scissor.x.toDouble(), scissorOfX2.toDouble()), scissorOf.getX().toDouble())
-            scissor.rectangle.y = max(min(scissor.y.toDouble(), scissorOfY2.toDouble()), scissorOf.getY().toDouble())
+            scissor.rectangle.x = max(min(scissor.x.toDouble(), scissorOfX2?.toDouble()!!), scissorOf?.x?.toDouble()!!).toInt()
+            scissor.rectangle.y = max(min(scissor.y.toDouble(), scissorOfY2?.toDouble()!!), scissorOf?.y?.toDouble()!!).toInt()
             scissor.rectangle.width = max(
                 0.0,
                 min(
-                    min(scissor.width.toDouble(), (oldX2 - scissorOf.getX()).toDouble()),
+                    min(scissor.width.toDouble(), (oldX2 - scissorOf?.x!!).toDouble()),
                     (min(scissorOfX2.toDouble(), scissor.x2.toDouble()) - scissor.x).toDouble()
                 )
-            )
+            ).toInt()
             scissor.rectangle.height = max(
                 0.0,
                 min(
-                    min(scissor.height.toDouble(), (oldY2 - scissorOf.getY()).toDouble()),
+                    min(scissor.height.toDouble(), (oldY2 - scissorOf?.y!!).toDouble()),
                     (min(scissorOfY2.toDouble(), scissor.y2.toDouble()) - scissor.y).toDouble()
                 )
-            )
+            ).toInt()
         }
         scissorList[scissor.index] = scissor
         batch.end()
@@ -62,25 +62,25 @@ class Scissor(private val batch: TextureBatch) {
         if (index < 0) return
         if (scissorOfIndex != -1 && !scissorList.isEmpty()) {
             val scissorOf = scissorList[scissorOfIndex]
-            val scissorOfX2 = scissorOf.getX2()
-            val scissorOfY2 = scissorOf.getY2()
+            val scissorOfX2 = scissorOf?.x2!!
+            val scissorOfY2 = scissorOf?.y2!!
             val oldX2 = x + width
             val oldY2 = y + height
-            x = max(min(x.toDouble(), scissorOfX2.toDouble()), scissorOf.getX().toDouble()).toInt()
-            y = max(min(y.toDouble(), scissorOfY2.toDouble()), scissorOf.getY().toDouble()).toInt()
+            x = max(min(x.toDouble(), scissorOfX2.toDouble()), scissorOf?.x!!.toDouble()).toInt()
+            y = max(min(y.toDouble(), scissorOfY2.toDouble()), scissorOf?.y!!.toDouble()).toInt()
             val x2 = x + width
             val y2 = y + height
             width = max(
                 0.0,
                 min(
-                    min(width.toDouble(), (oldX2 - scissorOf.getX()).toDouble()),
+                    min(width.toDouble(), (oldX2 - scissorOf?.x!!).toDouble()),
                     (min(scissorOfX2.toDouble(), x2.toDouble()) - x).toDouble()
                 )
             ).toInt()
             height = max(
                 0.0,
                 min(
-                    min(height.toDouble(), (oldY2 - scissorOf.getY()).toDouble()),
+                    min(height.toDouble(), (oldY2 - scissorOf?.y!!).toDouble()),
                     (min(scissorOfY2.toDouble(), y2.toDouble()) - y).toDouble()
                 )
             ).toInt()
@@ -94,7 +94,7 @@ class Scissor(private val batch: TextureBatch) {
 
     fun end(index: Int) {
         val removedScissor = scissorList.remove(index)
-        val removedIndexOf = removedScissor.getScissorOfIndex()
+        val removedIndexOf = removedScissor?.scissorOfIndex!!
         batch.end()
         if (removedIndexOf != -1 && scissorList.size != 0) {
             val scissor = scissorList[removedIndexOf]

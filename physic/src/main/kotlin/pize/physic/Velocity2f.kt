@@ -1,18 +1,6 @@
 package pize.physic
 
-import pize.math.vecmath.vector.Vec3f
-import pize.physic.Ray3f
-import pize.physic.BoxBody
-import pize.math.Maths
-import pize.physic.BoundingBox3
-import pize.physic.BoundingBox2
 import pize.math.vecmath.vector.Vec2f
-import pize.physic.RectBody
-import pize.physic.Collider2f
-import pize.physic.Collider3f
-import pize.physic.Velocity2f
-import pize.physic.Velocity3f
-import pize.physic.Intersector
 
 class Velocity2f : Vec2f {
     var max: Float

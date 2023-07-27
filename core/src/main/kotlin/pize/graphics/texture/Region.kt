@@ -74,11 +74,11 @@ open class Region {
     }
 
     fun getWidthPx(texture: Texture?): Float {
-        return width * texture.getWidth()
+        return width * texture?.width!!
     }
 
     fun getHeightPx(texture: Texture?): Float {
-        return height * texture.getHeight()
+        return height * texture?.height!!
     }
 
     open fun copy(): Region {

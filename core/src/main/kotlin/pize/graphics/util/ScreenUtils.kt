@@ -14,8 +14,8 @@ import javax.imageio.ImageIO
 
 object ScreenUtils {
     fun saveScreenshot(file: File?, format: String?) {
-        val width = Pize.getWidth()
-        val height = Pize.getHeight()
+        val width = Pize?.width!!
+        val height = Pize?.height!!
         val buffer = BufferUtils.createByteBuffer(width * height * 4).order(ByteOrder.LITTLE_ENDIAN)
         GL11.glReadPixels(0, 0, width, height, Format.BGRA.GL, Type.UNSIGNED_BYTE.GL, buffer)
         val pixels = IntArray(width * height)
@@ -36,6 +36,6 @@ object ScreenUtils {
     @JvmStatic
     fun saveScreenshot(filepath: String) {
         val resource = Resource(filepath)
-        saveScreenshot(resource.file, resource.getExtension())
+        saveScreenshot(resource.file, resource?.extension!!)
     }
 }

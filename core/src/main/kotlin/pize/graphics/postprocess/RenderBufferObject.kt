@@ -9,8 +9,8 @@ import pize.graphics.texture.Texture
 import pize.graphics.texture.TextureParameters
 
 class RenderBufferObject @JvmOverloads constructor(
-    var width: Int = Pize.getWidth(),
-    var height: Int = Pize.getHeight()
+    var width: Int = Pize?.width!!,
+    var height: Int = Pize?.height!!
 ) : GlObject(GL30.glGenRenderbuffers()), Resizable {
     private var attachment: Attachment
     val texture: Texture
@@ -36,8 +36,8 @@ class RenderBufferObject @JvmOverloads constructor(
     fun create() {
         texture.update()
         bind()
-        GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, attachment.GL, GL11.GL_TEXTURE_2D, texture.id, 0)
-        GL30.glRenderbufferStorage(GL30.GL_RENDERBUFFER, texture.sizedFormat.GL, width, height)
+        GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, attachment.GL, GL11.GL_TEXTURE_2D, texture.ID, 0)
+        GL30.glRenderbufferStorage(GL30.GL_RENDERBUFFER, texture.sizedFormat?.GL!!, width, height)
         GL30.glFramebufferRenderbuffer(GL30.GL_FRAMEBUFFER, attachment.GL, GL30.GL_RENDERBUFFER, ID)
         unbind()
     }
@@ -47,7 +47,7 @@ class RenderBufferObject @JvmOverloads constructor(
         this.height = height
         texture.resize(width, height)
         bind()
-        GL30.glRenderbufferStorage(GL30.GL_RENDERBUFFER, texture.sizedFormat.GL, width, height)
+        GL30.glRenderbufferStorage(GL30.GL_RENDERBUFFER, texture.sizedFormat?.GL!!, width, height)
         unbind()
     }
 

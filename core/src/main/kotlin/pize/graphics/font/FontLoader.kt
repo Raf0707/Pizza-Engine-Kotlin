@@ -43,10 +43,10 @@ object FontLoader {
                     val id = getValue(tokens[1]).toInt()
                     val page = getValue(tokens[9]).toInt()
                     val pageTexture = font.getPage(page)
-                    val s0 = getValue(tokens[2]).toInt().toFloat() / pageTexture.width
-                    val t0 = getValue(tokens[3]).toInt().toFloat() / pageTexture.height
-                    val s1 = getValue(tokens[4]).toInt().toFloat() / pageTexture.width + s0
-                    val t1 = getValue(tokens[5]).toInt().toFloat() / pageTexture.height + t0
+                    val s0 = getValue(tokens[2]).toInt().toFloat() / pageTexture?.width!!
+                    val t0 = getValue(tokens[3]).toInt().toFloat() / pageTexture?.height!!
+                    val s1 = getValue(tokens[4]).toInt().toFloat() / pageTexture?.width!! + s0
+                    val t1 = getValue(tokens[5]).toInt().toFloat() / pageTexture?.height!! + t0
                     val offsetX = getValue(tokens[6]).toInt()
                     val offsetY = getValue(tokens[7]).toInt()
                     val advanceX = getValue(tokens[8]).toInt()

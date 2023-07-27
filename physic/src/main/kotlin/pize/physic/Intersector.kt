@@ -18,7 +18,7 @@ object Intersector {
     fun lineQuad(q1: Vec3f, q2: Vec3f, p1: Vec3f, p2: Vec3f, p3: Vec3f, p4: Vec3f): Vec3f? {
         val i1 = lineTriangle(q1, q2, p1, p2, p3)
         val i2 = lineTriangle(q1, q2, p1, p4, p3)
-        return if (i1 == null and i2 == null) null else i2 ?: i1
+        return if (i1 == null && i2 == null) null else i2 ?: i1
     }
 
     fun lineQuad(
@@ -43,7 +43,7 @@ object Intersector {
         val p4 = Vec3f(x4, y4, z4)
         val i1 = lineTriangle(q1, q2, p1, p2, p3)
         val i2 = lineTriangle(q1, q2, p1, p4, p3)
-        return if (i1 == null and i2 == null) null else i2 ?: i1
+        return if (i1 == null && i2 == null) null else i2 ?: i1
     }
 
     fun lineTriangle(q1: Vec3f, q2: Vec3f, p1: Vec3f, p2: Vec3f, p3: Vec3f): Vec3f? {

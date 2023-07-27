@@ -64,8 +64,8 @@ class Ray3f {
     }
 
     fun intersect(v0: Vec3f?, v1: Vec3f, v2: Vec3f): Float {
-        val edge10 = v1.sub(v0)
-        val edge20 = v2.sub(v0)
+        val edge10 = v1.sub(v0!!)
+        val edge20 = v2.sub(v0!!)
         val normal = direction.copy().crs(edge20)
         val det = edge10.copy().dot(normal)
         if (det < Maths.Epsilon) return (-1).toFloat()

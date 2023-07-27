@@ -22,8 +22,8 @@ class Bloom(private var brightness: Float, private var radius: Float) : PostProc
     private val combineShader: Shader
 
     init {
-        val width = Pize.getWidth()
-        val height = Pize.getHeight()
+        val width = Pize?.width!!
+        val height = Pize?.height!!
 
         // Frame Buffer 1 & Render Buffer
         colorBuffer = FrameBufferObject(width, height)

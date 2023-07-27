@@ -405,7 +405,7 @@ class FastNoiseLite {
         for (i in 0 until mOctaves) {
             val noise = GenNoiseSingle(seed++, x, y)
             sum += noise * amp
-            amp *= Maths.lerp(1.0f, min((noise + 1).toDouble(), 2.0) * 0.5f, mWeightedStrength)
+            amp *= Maths.lerp(1.0f, min((noise + 1).toDouble(), 2.0).toFloat() * 0.5f, mWeightedStrength)
             x *= mLacunarity
             y *= mLacunarity
             amp *= mGain

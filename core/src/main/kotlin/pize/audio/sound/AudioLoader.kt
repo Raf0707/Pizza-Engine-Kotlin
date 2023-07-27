@@ -88,7 +88,7 @@ object AudioLoader {
 
     @JvmStatic
     fun load(audioBuffer: AudioBuffer?, resource: Resource) {
-        when (resource.getExtension().lowercase(Locale.getDefault())) {
+        when (resource?.extension?.lowercase(Locale.getDefault())) {
             "ogg" -> loadOgg(audioBuffer, resource)
             "wav" -> loadWav(audioBuffer, resource)
             "mp3" -> loadMp3(audioBuffer, resource)

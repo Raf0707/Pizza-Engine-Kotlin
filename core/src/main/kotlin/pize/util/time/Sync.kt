@@ -2,7 +2,7 @@ package pize.util.time
 
 import pize.Pize
 
-class Sync @JvmOverloads constructor(fps: Double = Pize.monitor().refreshRate.toDouble()) {
+class Sync @JvmOverloads constructor(fps: Double = Pize.monitor()?.refreshRate?.toDouble()!!) {
     private var prevTime: Long = 0
     private var frameNano: Long = 0
     var isEnabled = false

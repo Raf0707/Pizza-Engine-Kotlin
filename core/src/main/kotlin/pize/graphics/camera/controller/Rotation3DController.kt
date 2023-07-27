@@ -23,17 +23,17 @@ class Rotation3DController {
     fun update() {
         if (Pize.window()!!.isFocused && !isMouseShow) {
             if (!nextFrameRotationLock && Pize.mouse()!!.isInWindow) {
-                val x = Pize.mouse().getX().toFloat()
-                val y = Pize.mouse().getY().toFloat()
-                dAngX += (Pize.getWidth() / 2f).toInt() - x
-                dAngY += (Pize.getHeight() / 2f).toInt() - y
+                val x = Pize.mouse()?.x?.toFloat()
+                val y = Pize.mouse()?.y?.toFloat()
+                dAngX += (Pize.width / 2f).toInt() - x!!
+                dAngY += (Pize.height / 2f).toInt() - y!!
                 rotation.yaw += (dAngX * 0.02 * sensitivity).toFloat()
                 rotation.pitch += (dAngY * 0.02 * sensitivity).toFloat()
                 rotation.limitPitch90()
                 dAngX *= 0.1.toFloat()
                 dAngY *= 0.1.toFloat()
             }
-            Pize.mouse()!!.setPos(Pize.getWidth() / 2, Pize.getHeight() / 2)
+            Pize.mouse()!!.setPos(Pize?.width!! / 2, Pize?.height!! / 2)
             nextFrameRotationLock = false
         }
     }

@@ -30,14 +30,14 @@ object Collider2f {
     }
 
     private fun distX(motion: Float, body: RectBody?, rect: RectBody): Float {
-        if (motion == 0f) return 0
-        if (rect.max.y > body.getMin().y && rect.min.y < body.getMax().y) if (motion > 0) {
+        if (motion == 0f) return 0F
+        if (rect.max.y > body?.min!!.y && rect.min.y < body?.max!!.y) if (motion > 0) {
             val min = Math.min(rect.min.x, rect.max.x)
-            val max = Math.max(body.getMin().x, body.getMax().x)
+            val max = Math.max(body?.min!!.x, body?.max!!.x)
             val offset = min - max
             if (offset >= 0 && motion > offset) return offset
         } else {
-            val min = Math.min(body.getMin().x, body.getMax().x)
+            val min = Math.min(body?.min!!.x, body?.max!!.x)
             val max = Math.max(rect.min.x, rect.max.x)
             val offset = max - min
             if (offset <= 0 && motion < offset) return offset
@@ -46,14 +46,14 @@ object Collider2f {
     }
 
     private fun distY(motion: Float, body: RectBody?, rect: RectBody): Float {
-        if (motion == 0f) return 0
-        if (rect.max.x > body.getMin().x && rect.min.x < body.getMax().x) if (motion > 0) {
+        if (motion == 0f) return 0F
+        if (rect.max.x > body?.min!!.x && rect.min.x < body?.max!!.x) if (motion > 0) {
             val min = Math.min(rect.min.y, rect.max.y)
-            val max = Math.max(body.getMin().y, body.getMax().y)
+            val max = Math.max(body?.min!!.y, body?.max!!.y)
             val offset = min - max
             if (offset >= 0 && motion > offset) return offset
         } else {
-            val min = Math.min(body.getMin().y, body.getMax().y)
+            val min = Math.min(body?.min!!.y, body?.max!!.y)
             val max = Math.max(rect.min.y, rect.max.y)
             val offset = max - min
             if (offset <= 0 && motion < offset) return offset

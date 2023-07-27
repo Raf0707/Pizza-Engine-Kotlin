@@ -6,13 +6,13 @@ import pize.math.Maths
 import pize.math.vecmath.matrix.Matrix4f
 
 class CenteredOrthographicCamera @JvmOverloads constructor(
-    width: Int = Pize.getWidth(),
-    height: Int = Pize.getHeight()
+    width: Int = Pize?.width!!,
+    height: Int = Pize?.height!!
 ) : Camera2D(width, height), Resizable {
     override var scale = 1f
     override var rotation = 0f
     override val projection: Matrix4f?
-    private override val view: Matrix4f
+    override val view: Matrix4f
     private val scalingMatrix: Matrix4f
     private val translationMatrix: Matrix4f
     private val rotationMatrix: Matrix4f
@@ -44,7 +44,8 @@ class CenteredOrthographicCamera @JvmOverloads constructor(
             dirtyProjection = false
         }
         scalingMatrix.toScaled(scale, scale, 1f)
-        translationMatrix.toTranslated(if (imaginaryX) 0 else -position.x, if (imaginaryY) 0 else -position.y, 0f)
+        translationMatrix.toTranslated((if (imaginaryX) 0 else -position.x) as Float,
+            (if (imaginaryY) 0 else -position.y) as Float, 0f)
         rotationMatrix.toRotatedZ(rotation.toDouble())
         view.set(scalingMatrix.mul(translationMatrix).mul(rotationMatrix))
     }
@@ -68,7 +69,7 @@ class CenteredOrthographicCamera @JvmOverloads constructor(
         rotation += deg
     }
 
-    override fun getView(): Matrix4f? {
+    fun getView(): Matrix4f? {
         return view
     }
 }

@@ -19,8 +19,8 @@ class MotionBlur : PostProcessEffect {
     private val backFrame: Texture
 
     init {
-        val width = Pize.getWidth()
-        val height = Pize.getHeight()
+        val width = Pize?.width!!
+        val height = Pize?.height!!
 
         // Frame & Render Buffer 1
         fbo1 = FrameBufferObject(width, height)

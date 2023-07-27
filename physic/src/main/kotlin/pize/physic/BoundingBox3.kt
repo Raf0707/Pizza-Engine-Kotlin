@@ -1,24 +1,13 @@
 package pize.physic
 
 import pize.math.vecmath.vector.Vec3f
-import pize.physic.Ray3f
-import pize.physic.BoxBody
-import pize.math.Maths
-import pize.physic.BoundingBox3
-import pize.physic.BoundingBox2
-import pize.math.vecmath.vector.Vec2f
-import pize.physic.RectBody
-import pize.physic.Collider2f
-import pize.physic.Collider3f
-import pize.physic.Velocity2f
-import pize.physic.Velocity3f
 import pize.physic.Intersector
 
 class BoundingBox3 {
     val min: Vec3f
     val max: Vec3f
 
-    constructor(minX: Double, minY: Double, minZ: Double, maxX: Double, maxY: Double, maxZ: Double) {
+    constructor(minX: Float, minY: Double, minZ: Double, maxX: Double, maxY: Double, maxZ: Double) {
         min = Vec3f(minX, minY, minZ)
         max = Vec3f(maxX, maxY, maxZ)
     }
@@ -39,8 +28,8 @@ class BoundingBox3 {
     }
 
     fun resize(min: Vec3f?, max: Vec3f?) {
-        this.min.set(min)
-        this.max.set(max)
+        min?.let { this.min.set(it) }
+        max?.let { this.max.set(it) }
     }
 
     fun resize(box: BoundingBox3) {
