@@ -6,10 +6,10 @@ enum class MusicSet private constructor(vararg set: String) {
     private val set: Array<String>
 
     init {
-        this.set = set
+        this.set = set as Array<String>
     }
 
-    fun get(index: Int): String {
+    operator fun get(index: Int): String {
         return set[index]
     }
 

@@ -64,7 +64,7 @@ class OrthographicCamera @JvmOverloads constructor(width: Int = Pize?.width!!, h
         rotation = deg
     }
 
-    fun getView(): Matrix4f? {
+    fun get(): Matrix4f? {
         return view
     }
 }

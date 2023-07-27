@@ -9,10 +9,11 @@ class BaseLayout : UIComponent<TextureBatch?>() {
         super.setSize(matchParent(), matchParent())
     }
 
-    protected override fun render(batch: TextureBatch, x: Float, y: Float, width: Float, height: Float) {
+    override fun render(canvas: TextureBatch?, x: Float, y: Float, width: Float, height: Float) {
         // if(isHover()){
         //     batch.drawQuad(0.1, x, y, width, height);
         //     batch.resetColor();
         // }
     }
+
 }

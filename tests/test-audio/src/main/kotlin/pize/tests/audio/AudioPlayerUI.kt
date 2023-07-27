@@ -9,6 +9,7 @@ import pize.graphics.texture.Texture
 import pize.graphics.util.batch.TextureBatch
 import pize.gui.Align
 import pize.gui.LayoutType
+import pize.gui.UIComponent
 import pize.gui.components.*
 import pize.gui.constraint.Constraint.Companion.aspect
 import pize.gui.constraint.Constraint.Companion.relative
@@ -28,12 +29,12 @@ class AudioPlayerUI : Disposable {
         sliderHandle.setSize(aspect(sliderHandleTexture.aspect().toDouble()), relative(1.0))
 
         // Slider Position
-        val positionSlider = Slider(sliderBackground, sliderHandle)
+        val positionSlider = Slider(sliderBackground as UIComponent<TextureBatch?>, sliderHandle as UIComponent<TextureBatch?>)
         positionSlider.setSize(relative(1.0), relative(0.5))
         layout.put("position", positionSlider)
 
         // Slider Pitch
-        val pitchSlider = Slider(sliderBackground.copy(), sliderHandle.copy())
+        val pitchSlider = Slider(sliderBackground.copy() as UIComponent<TextureBatch?>, sliderHandle.copy() as UIComponent<TextureBatch?>)
         pitchSlider.setSize(relative(1.0), relative(0.5))
         pitchSlider.setValue((1 / 2f).toDouble())
         layout.put("pitch", pitchSlider)

@@ -29,7 +29,7 @@ open class Vec2f {
     }
 
     constructor(vector: Vec2f?) {
-        set(vector)
+        vector?.let { set(it) }
     }
 
     constructor(vector: Vec3d) {

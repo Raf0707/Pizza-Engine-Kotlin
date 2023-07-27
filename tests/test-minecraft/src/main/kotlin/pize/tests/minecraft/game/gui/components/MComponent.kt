@@ -59,4 +59,6 @@ abstract class MComponent : UIComponent<TextureBatch?>() {
     companion object {
         const val INTERFACE_SCALE = 3
     }
+
+    abstract fun render(batch: TextureBatch, x: Float, y: Float, width: Float, height: Float)
 }

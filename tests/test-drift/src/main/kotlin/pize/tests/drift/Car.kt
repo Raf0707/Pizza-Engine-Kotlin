@@ -46,9 +46,9 @@ class Car : CarPart(Texture("coin.png"), 282f, 612f) {
         wheelsRotation = clamp(wheelsRotation, -65f, 65f)
 
         // Velocity
-        val directedLocalVelocity = Vec2f(0f, abs(cosDeg(wheelsRotation.toDouble()).toDouble()) * backWheelsVelocity)
+        val directedLocalVelocity = Vec2f(0.0, abs(cosDeg(wheelsRotation.toDouble()).toDouble()) * backWheelsVelocity)
         val velocity = Vec2f(directedLocalVelocity.copy().rotDeg(rotation.toDouble()))
-        super.getPosition().add(velocity)
+        super.position!!.add(velocity)
 
         // Rotation
         super.rotate(

@@ -13,7 +13,7 @@ class TextEdit(font: BitmapFont?, newLineOnEnter: Boolean) : TextView("", font),
     }
 
     override fun render(batch: TextureBatch, x: Float, y: Float, width: Float, height: Float) {
-        super.setText(textProcessor.toString())
+        super.text = textProcessor.toString()
         super.render(batch, x, y, width, height)
     }
 

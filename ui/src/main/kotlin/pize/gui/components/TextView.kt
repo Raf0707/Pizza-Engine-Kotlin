@@ -36,8 +36,8 @@ open class TextView(var text: String, var font: BitmapFont?) : UIComponent<Textu
             batch.setColor(shadowColor)
             font!!.drawText(
                 batch, text,
-                renderX + round(shadowOffsetX * font.getScale()),
-                renderY + round(shadowOffsetY * font.getScale())
+                renderX + round(shadowOffsetX * font?.scale!!.toDouble()),
+                renderY + round(shadowOffsetY * font?.scale!!.toDouble())
             )
         }
         batch.setColor(color)

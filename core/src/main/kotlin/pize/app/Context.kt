@@ -14,6 +14,7 @@ import pize.util.Utils
 import pize.util.time.DeltaTimeCounter
 import pize.util.time.PerSecCounter
 import pize.util.time.TickGenerator
+import pize.util.time.Tickable
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -57,13 +58,17 @@ class Context(window: Window, keyboard: Keyboard, mouse: Mouse) {
         }
 
         // Fixed update
+
+        // Fixed update
         if (initialUpdateTPS != 0f) {
             fixedUpdateGenerator = TickGenerator(initialUpdateTPS)
-            fixedUpdateGenerator!!.startAsync {
-                if (fixedUpdateExecutor.isShutdown) return@startAsync
-                fixedUpdateDeltaTime.update()
-                fixedUpdateExecutor.submit { listener.fixedUpdate() } /* FIXED UPDATE */
-            }
+            fixedUpdateGenerator!!.startAsync(object : Tickable {
+                override fun tick() {
+                    if (fixedUpdateExecutor.isShutdown) return //@startAsync
+                    fixedUpdateDeltaTime.update()
+                    fixedUpdateExecutor.submit { listener.fixedUpdate() } /* FIXED UPDATE */
+                }
+            })
         }
 
         // Render loop

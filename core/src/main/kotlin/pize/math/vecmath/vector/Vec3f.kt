@@ -38,7 +38,7 @@ open class Vec3f {
     }
 
     constructor(vector: Vec3f?) {
-        set(vector)
+        vector?.let { set(it) }
     }
 
     constructor(vector: Vec3i) {

@@ -17,7 +17,7 @@ class AudioManager(private val session: Session) : Disposable {
     fun play(sound: Sound, volume: Float, pitch: Float) {
         var volume = volume
         for (audioSource in audioSources) if (!audioSource!!.isPlaying) {
-            audioSource.setBuffer(session.resourceManager.getSound(sound.resourceId))
+            session.resourceManager?.getSound(sound.resourceId)?.let { audioSource.setBuffer(it) }
             volume *= session.options.getSoundVolume(sound.category) * sound.maxVolume
             if (sound.category != SoundCategory.MASTER) volume *= session.options.getSoundVolume(SoundCategory.MASTER)
             audioSource.setVolume(volume.toDouble())

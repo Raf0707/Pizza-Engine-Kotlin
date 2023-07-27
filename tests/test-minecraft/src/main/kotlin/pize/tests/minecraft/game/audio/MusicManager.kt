@@ -34,7 +34,7 @@ class MusicManager(private val session: Session) : Disposable {
 
     private fun play() {
         if (current != null) current!!.stop()
-        current = session.resourceManager.getMusic(currentSet!![currentIndex])
+        current = session.resourceManager?.getMusic(currentSet!![currentIndex])
         if (current == null) return
         current!!.setVolume(volume.toDouble())
         current!!.play()

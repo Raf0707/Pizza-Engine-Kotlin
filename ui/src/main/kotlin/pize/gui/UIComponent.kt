@@ -23,8 +23,7 @@ abstract class UIComponent<C> @JvmOverloads constructor(
         protected set
     var isShow = false
         private set
-    var isHover = false
-        private set
+    open var isHover = false
     private var preGrab = false
     var isGrab = false
         private set

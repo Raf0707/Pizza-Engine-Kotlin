@@ -24,7 +24,7 @@ class Slider(private val background: UIComponent<TextureBatch?>, private val han
     public override fun render(batch: TextureBatch?, x: Float, y: Float, width: Float, height: Float) {
         background.render(batch)
         val handleWidth = handle.width
-        handle.xConstraint.setValue((value * (width - handleWidth)).toDouble())
+        handle.xConstraint?.setValue((value * (width - handleWidth)).toDouble())
         handle.render(batch)
         if (isTouchDown) drag = true else if (Pize.isTouchReleased) drag = false
         prevValue = value
