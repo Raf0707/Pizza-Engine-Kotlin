@@ -1,0 +1,63 @@
+package pize.physic
+
+import pize.math.vecmath.vector.Vec3f
+import pize.physic.Ray3f
+import pize.physic.BoxBody
+import pize.math.Maths
+import pize.physic.BoundingBox3
+import pize.physic.BoundingBox2
+import pize.math.vecmath.vector.Vec2f
+import pize.physic.RectBody
+import pize.physic.Collider2f
+import pize.physic.Collider3f
+import pize.physic.Velocity2f
+import pize.physic.Velocity3f
+import pize.physic.Intersector
+
+object Collider2f {
+    @kotlin.jvm.JvmStatic
+    fun getCollidedMotion(body: RectBody?, motion: Vec2f, vararg rects: RectBody): Vec2f {
+        var body = body
+        if (motion.isZero) return motion
+        body = body!!.copy()
+        var x = motion.x
+        for (rect in rects) if (x != 0f) x = distX(x, body, rect)
+        body.pos().x += x
+        var y = motion.y
+        for (rect in rects) if (y != 0f) y = distY(y, body, rect)
+        body.pos().y += y
+        return Vec2f(x, y)
+    }
+
+    private fun distX(motion: Float, body: RectBody?, rect: RectBody): Float {
+        if (motion == 0f) return 0
+        if (rect.max.y > body.getMin().y && rect.min.y < body.getMax().y) if (motion > 0) {
+            val min = Math.min(rect.min.x, rect.max.x)
+            val max = Math.max(body.getMin().x, body.getMax().x)
+            val offset = min - max
+            if (offset >= 0 && motion > offset) return offset
+        } else {
+            val min = Math.min(body.getMin().x, body.getMax().x)
+            val max = Math.max(rect.min.x, rect.max.x)
+            val offset = max - min
+            if (offset <= 0 && motion < offset) return offset
+        }
+        return motion
+    }
+
+    private fun distY(motion: Float, body: RectBody?, rect: RectBody): Float {
+        if (motion == 0f) return 0
+        if (rect.max.x > body.getMin().x && rect.min.x < body.getMax().x) if (motion > 0) {
+            val min = Math.min(rect.min.y, rect.max.y)
+            val max = Math.max(body.getMin().y, body.getMax().y)
+            val offset = min - max
+            if (offset >= 0 && motion > offset) return offset
+        } else {
+            val min = Math.min(body.getMin().y, body.getMax().y)
+            val max = Math.max(rect.min.y, rect.max.y)
+            val offset = max - min
+            if (offset <= 0 && motion < offset) return offset
+        }
+        return motion
+    }
+}

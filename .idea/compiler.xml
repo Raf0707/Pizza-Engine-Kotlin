@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="test-minecraft-osp" />
+        <module name="test-audio" />
+        <module name="dev-tests" />
+        <module name="test-minecraft" />
+        <module name="test-model-3d" />
+        <module name="test-text-editor" />
+        <module name="test-physic" />
+        <module name="test-window" />
+        <module name="test-terraria" />
+        <module name="test-drift" />
+        <module name="test-net" />
+        <module name="core" />
+        <module name="test-noise" />
+        <module name="ui" />
+        <module name="test-ui" />
+        <module name="net" />
+        <module name="physic" />
+        <module name="test-particle" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="particle" target="17" />
+      <module name="test-voxel-game" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
