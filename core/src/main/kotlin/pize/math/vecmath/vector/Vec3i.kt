@@ -506,7 +506,7 @@ class Vec3i {
     }
 
     fun mul(matrix: Matrix4f): Vec3i {
-        return mul(matrix.`val`)
+        return mul(matrix.values)
     }
 
     fun mul(matrix: FloatArray?): Vec3i {

@@ -678,7 +678,7 @@ open class Vec3f {
     }
 
     fun mul(matrix: Matrix4f): Vec3f {
-        return mul(matrix.`val`)
+        return mul(matrix.values)
     }
 
     fun mul(matrix: FloatArray?): Vec3f {

@@ -104,7 +104,7 @@ open class Shader : GlObject {
     }
 
     fun setUniform(uniformName: String, matrix4f: Matrix4f?) {
-        GL20.glUniformMatrix4fv(uniforms[uniformName]!!, false, matrix4f!!.`val`)
+        GL20.glUniformMatrix4fv(uniforms[uniformName]!!, false, matrix4f!!.values)
     }
 
     fun setUniform(uniformName: String, v: Vec2f) {

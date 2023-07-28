@@ -152,22 +152,22 @@ class Quaternion {
         val zz = z * z
         val zw = z * w
         val result = Matrix4f()
-        result.`val`[Matrix4.Companion.m00.toInt()] = 1 - 2 * (yy + zz)
-        result.`val`[Matrix4.Companion.m01.toInt()] = 2 * (xy - zw)
-        result.`val`[Matrix4.Companion.m02.toInt()] = 2 * (xz + yw)
-        result.`val`[Matrix4.Companion.m03.toInt()] = 0f
-        result.`val`[Matrix4.Companion.m10.toInt()] = 2 * (xy + zw)
-        result.`val`[Matrix4.Companion.m11.toInt()] = 1 - 2 * (xx + zz)
-        result.`val`[Matrix4.Companion.m12.toInt()] = 2 * (yz - xw)
-        result.`val`[Matrix4.Companion.m13.toInt()] = 0f
-        result.`val`[Matrix4.Companion.m20.toInt()] = 2 * (xz - yw)
-        result.`val`[Matrix4.Companion.m21.toInt()] = 2 * (yz + xw)
-        result.`val`[Matrix4.Companion.m22.toInt()] = 1 - 2 * (xx + yy)
-        result.`val`[Matrix4.Companion.m23.toInt()] = 0f
-        result.`val`[Matrix4.Companion.m30.toInt()] = 0f
-        result.`val`[Matrix4.Companion.m31.toInt()] = 0f
-        result.`val`[Matrix4.Companion.m32.toInt()] = 0f
-        result.`val`[Matrix4.Companion.m33.toInt()] = 1f
+        result.values[Matrix4.Companion.m00.toInt()] = 1 - 2 * (yy + zz)
+        result.values[Matrix4.Companion.m01.toInt()] = 2 * (xy - zw)
+        result.values[Matrix4.Companion.m02.toInt()] = 2 * (xz + yw)
+        result.values[Matrix4.Companion.m03.toInt()] = 0f
+        result.values[Matrix4.Companion.m10.toInt()] = 2 * (xy + zw)
+        result.values[Matrix4.Companion.m11.toInt()] = 1 - 2 * (xx + zz)
+        result.values[Matrix4.Companion.m12.toInt()] = 2 * (yz - xw)
+        result.values[Matrix4.Companion.m13.toInt()] = 0f
+        result.values[Matrix4.Companion.m20.toInt()] = 2 * (xz - yw)
+        result.values[Matrix4.Companion.m21.toInt()] = 2 * (yz + xw)
+        result.values[Matrix4.Companion.m22.toInt()] = 1 - 2 * (xx + yy)
+        result.values[Matrix4.Companion.m23.toInt()] = 0f
+        result.values[Matrix4.Companion.m30.toInt()] = 0f
+        result.values[Matrix4.Companion.m31.toInt()] = 0f
+        result.values[Matrix4.Companion.m32.toInt()] = 0f
+        result.values[Matrix4.Companion.m33.toInt()] = 1f
         return result
     }
 

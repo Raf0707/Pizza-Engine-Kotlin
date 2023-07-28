@@ -6,28 +6,18 @@ import pize.math.util.Frustum
 import pize.math.vecmath.matrix.Matrix4f
 
 open class PerspectiveCamera(width: Int, height: Int, near: Double, far: Double, fieldOfView: Double) : Camera3D(width, height), Resizable {
-    open var fieldOfView: Float = 0.0f
-        get() = field
-        set(fieldOfView) { this.fieldOfView = field }
-
-    override var near: Float = 0.0f
-        get() = field
-        set(near) { this.near = field }
-
-    override var far: Float = 0.0f
-        get() = field
-        set(far) { this.far = field }
-
-    override val projection: Matrix4f?
-        get() = field
-
-    override val view: Matrix4f?
-        get() = field
-    val imaginaryView: Matrix4f?
-        get() = field
-
-    val frustum: Frustum
-        get() = field
+    override var fieldOfView: Float = 70F; get
+        set(value) {
+            if(field == value) return
+            field = value
+            dirtyProjection = true
+        }
+    override var near: Float = 0F; get set
+    override var far: Float = 0F; get set
+    override val projection: Matrix4f?; get
+    override val view: Matrix4f?; get
+    val imaginaryView: Matrix4f?; get
+    val frustum: Frustum; get
 
     private var dirtyProjection = false
     private var imaginaryX = false
@@ -46,8 +36,7 @@ open class PerspectiveCamera(width: Int, height: Int, near: Double, far: Double,
         this.near = near.toFloat()
         this.far = far.toFloat()
         this.fieldOfView = fieldOfView.toFloat()
-        view =
-            Matrix4f().toLookAt(position, rotation.direction).mul(Matrix4f().toRotatedZ(rotation.roll.toDouble()))
+        view = Matrix4f().toLookAt(position, rotation.direction).mul(Matrix4f().toRotatedZ(rotation.roll.toDouble()))
         projection = Matrix4f().toPerspective(width.toFloat(), height.toFloat(), this.near, this.far, this.fieldOfView)
         imaginaryView = Matrix4f().set(view)
         frustum = Frustum(view, projection)
@@ -82,13 +71,5 @@ open class PerspectiveCamera(width: Int, height: Int, near: Double, far: Double,
         imaginaryY = y
         imaginaryZ = z
     }
-
-    override var fov: Float
-        get() = fieldOfView
-        set(fieldOfView) {
-            if (this.fieldOfView == fieldOfView) return
-            this.fieldOfView = fieldOfView
-            dirtyProjection = true
-        }
 
 }

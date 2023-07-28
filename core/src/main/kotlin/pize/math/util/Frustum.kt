@@ -11,7 +11,7 @@ class Frustum(view: Matrix4f?, proj: Matrix4f?) {
     }
 
     fun setFrustum(view: Matrix4f?, proj: Matrix4f?) {
-        val clip: FloatArray = Matrix4f.Companion.mul(proj!!.`val`, view!!.`val`)
+        val clip: FloatArray = Matrix4f.Companion.mul(proj!!.values, view!!.values)
         frustum = arrayOf(
             floatArrayOf(clip[3] - clip[0], clip[7] - clip[4], clip[11] - clip[8], clip[15] - clip[12]),
             floatArrayOf(

@@ -666,9 +666,9 @@ class Vec3d {
 
     fun mul(matrix: Matrix4f): Vec3d {
         set(
-            x * matrix.`val`[Matrix3.Companion.m00.toInt()] + y * matrix.`val`[Matrix3.Companion.m01.toInt()] + z * matrix.`val`[Matrix3.Companion.m02.toInt()],
-            x * matrix.`val`[Matrix3.Companion.m10.toInt()] + y * matrix.`val`[Matrix3.Companion.m11.toInt()] + z * matrix.`val`[Matrix3.Companion.m12.toInt()],
-            x * matrix.`val`[Matrix3.Companion.m10.toInt()] + y * matrix.`val`[Matrix3.Companion.m11.toInt()] + z * matrix.`val`[Matrix3.Companion.m12.toInt()]
+            x * matrix.values[Matrix3.Companion.m00.toInt()] + y * matrix.values[Matrix3.Companion.m01.toInt()] + z * matrix.values[Matrix3.Companion.m02.toInt()],
+            x * matrix.values[Matrix3.Companion.m10.toInt()] + y * matrix.values[Matrix3.Companion.m11.toInt()] + z * matrix.values[Matrix3.Companion.m12.toInt()],
+            x * matrix.values[Matrix3.Companion.m10.toInt()] + y * matrix.values[Matrix3.Companion.m11.toInt()] + z * matrix.values[Matrix3.Companion.m12.toInt()]
         )
         return this
     }
