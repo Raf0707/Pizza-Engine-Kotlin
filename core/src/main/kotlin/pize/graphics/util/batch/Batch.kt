@@ -10,6 +10,7 @@ import pize.math.vecmath.vector.Vec2f
 
 abstract class Batch : Disposable {
     protected val color: Color
+        get() = field
 
     init {
         color = Color()

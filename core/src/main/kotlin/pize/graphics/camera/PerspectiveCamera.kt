@@ -5,8 +5,7 @@ import pize.app.Resizable
 import pize.math.util.Frustum
 import pize.math.vecmath.matrix.Matrix4f
 
-open class PerspectiveCamera(width: Int, height: Int, near: Double, far: Double, fieldOfView: Double) :
-    Camera3D(width, height), Resizable {
+open class PerspectiveCamera(width: Int, height: Int, near: Double, far: Double, fieldOfView: Double) : Camera3D(width, height), Resizable {
     open var fieldOfView: Float = 0.0f
         get() = field
         set(fieldOfView) { this.fieldOfView = field }

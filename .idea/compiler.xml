@@ -10,7 +10,6 @@
         <module name="test-audio" />
         <module name="dev-tests" />
         <module name="test-minecraft" />
-        <module name="minecraft-osp-mod" />
         <module name="test-text-editor" />
         <module name="test-physic" />
         <module name="test-window" />
@@ -26,7 +25,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="minecraft-osp-mod" target="17" />
       <module name="particle" target="17" />
+      <module name="Pizza-Engine-Kotlin" target="1.5" />
+      <module name="PizzaEngine" target="17" />
       <module name="test-model-3d" target="17" />
       <module name="test-particle" target="17" />
       <module name="test-voxel-game" target="17" />

@@ -4,6 +4,7 @@
     <option name="directories">
       <list>
         <option value="src/main/kotlin" />
+        <option value="target/generated-sources/annotations" />
       </list>
     </option>
   </component>

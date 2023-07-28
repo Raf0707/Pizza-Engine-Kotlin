@@ -10,21 +10,22 @@ import pize.util.StringUtils
 import kotlin.math.atan
 import kotlin.math.max
 
-class BitmapFont : Disposable {
+class BitmapFont: Disposable {
     private val glyphs: MutableMap<Int, Glyph> = HashMap()
     private val pages: MutableMap<Int, Texture> = HashMap()
-    var lineHeight = 0
-    @JvmField
-    var scale = 0f
-    @JvmField
-    var rotation = 0f
-    @JvmField
-    var lineGaps = 0f
-    var isItalic = false
 
-    init {
-        scale = 1f
-    }
+    var lineHeight = 0; get
+    var scale = 1f; get
+    var rotation = 0f; get
+    var lineGaps = 0f; get
+    var isItalic = false; get
+
+    val lineHeightScaled: Float
+        get() = lineHeight * scale
+    val lineAdvance: Float
+        get() = lineHeight + lineGaps
+    val lineAdvanceScaled: Float
+        get() = lineAdvance * scale
 
     fun getGlyph(code: Int): Glyph? {
         return glyphs[code]
@@ -46,13 +47,6 @@ class BitmapFont : Disposable {
         return lineHeight.toFloat()
     }
 
-    val lineHeightScaled: Float
-        get() = lineHeight * scale
-    val lineAdvance: Float
-        get() = lineHeight + lineGaps
-    val lineAdvanceScaled: Float
-        get() = lineAdvance * scale
-
     fun setLineHeight(lineHeight: Int) {
         this.lineHeight = lineHeight
     }
@@ -66,16 +60,16 @@ class BitmapFont : Disposable {
         var maxAdvanceX = 0f
         var advanceX = 0f
         var advanceY = lineAdvance
-        for (i in 0 until text.length) {
+        for(i in text.indices) {
             val code = Character.codePointAt(text, i)
             val glyph = glyphs[code] ?: continue
-            if (code == 10) {
+            if(code == 10) {
                 maxAdvanceX = max(maxAdvanceX.toDouble(), advanceX.toDouble()).toFloat()
                 advanceX = 0f
                 advanceY += lineAdvance
                 continue
             }
-            if (width > 0 && (advanceX + glyph.advanceX) * scale > width) {
+            if(width > 0 && (advanceX + glyph.advanceX) * scale > width) {
                 maxAdvanceX = max(maxAdvanceX.toDouble(), advanceX.toDouble()).toFloat()
                 advanceX = 0f
                 advanceY += lineAdvance
@@ -93,15 +87,15 @@ class BitmapFont : Disposable {
         val lineAdvance = lineAdvance
         var advanceX = 0f
         var advanceY = lineAdvance
-        for (i in 0 until text.length) {
+        for(i in 0 until text.length) {
             val code = Character.codePointAt(text, i)
             val glyph = glyphs[code] ?: continue
-            if (code == 10) {
+            if(code == 10) {
                 advanceX = 0f
                 advanceY += lineAdvance
                 continue
             }
-            if (width > 0 && (advanceX + glyph.advanceX) * scale > width) {
+            if(width > 0 && (advanceX + glyph.advanceX) * scale > width) {
                 advanceX = 0f
                 advanceY += lineAdvance
             }
@@ -112,9 +106,9 @@ class BitmapFont : Disposable {
 
     fun getLineWidth(line: String): Float {
         var advanceX = 0f
-        for (i in 0 until line.length) {
+        for(i in 0 until line.length) {
             val code = Character.codePointAt(line, i)
-            if (code == 10) continue
+            if(code == 10) continue
             val glyph = glyphs[code] ?: continue
             advanceX += glyph.advanceX
         }
@@ -123,13 +117,13 @@ class BitmapFont : Disposable {
 
     @JvmOverloads
     fun drawText(batch: TextureBatch, text: String?, x: Float, y: Float, width: Double = -1.0) {
-        if (text == null) return
+        if(text == null) return
         val lineAdvance = lineAdvance
         var advanceX = 0f
         var advanceY = (lineHeight * StringUtils.count(text, "\n")).toFloat()
         batch.setTransformOrigin(0.0, 0.0)
         batch.rotate(rotation)
-        batch.shear((if (isItalic) ITALIC_ANGLE else 0) as Float, 0f)
+        batch.shear((if(isItalic) ITALIC_ANGLE else 0) as Float, 0f)
 
         // Calculate centering offset
         val bounds = getBounds(text, width)
@@ -141,15 +135,15 @@ class BitmapFont : Disposable {
         // Rotation
         val cos = Mathc.cos((rotation * Maths.ToRad).toDouble())
         val sin = Mathc.sin((rotation * Maths.ToRad).toDouble())
-        for (i in 0 until text.length) {
+        for(i in text.indices) {
             val code = Character.codePointAt(text, i)
-            if (code == 10) {
+            if(code == 10) {
                 advanceY -= lineAdvance
                 advanceX = 0f
                 continue
             }
             val glyph = glyphs[code] ?: continue
-            if (width > 0 && (advanceX + glyph.advanceX) * scale > width) {
+            if(width > 0 && (advanceX + glyph.advanceX) * scale > width) {
                 advanceY -= lineAdvance
                 advanceX = 0f
             }
@@ -165,10 +159,11 @@ class BitmapFont : Disposable {
     }
 
     override fun dispose() {
-        for (page in pages.values) page.dispose()
+        for(page in pages.values) page.dispose()
     }
 
     companion object {
         const val ITALIC_ANGLE = 15f
     }
+
 }
