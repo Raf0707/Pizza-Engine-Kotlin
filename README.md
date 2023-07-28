@@ -1,4 +1,6 @@
-# PIZE - Pizza Engine [Kotlin]
+# PIZE - Pizza Engine [Kotlin] 
+Original: [Табуретка](https://github.com/GeneralPashon/Pizza-Engine) от [стульчика](https://github.com/GeneralPashon) 
+
 The engine focuses on being clear, simple and productive
 
 ## Getting Started
